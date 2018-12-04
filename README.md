@@ -6,6 +6,6 @@ Require CMake version >=3.2
 
 ## How to use
 
-```cmake .```
-```make```
-```./test01 < input01.txt```
+```cmake .```  
+```make```  
+```./test01 < input01.txt```  
