@@ -19,7 +19,7 @@ std::ostream& operator<<(std::ostream& os, const ContainerType<ValueType, Args..
 }
 
 
-std::vector<int> f(int target, std::vector<int> v){
+std::vector<int> twoSum(int target, std::vector<int> v){
 	int n = v.size();
     int complement;
     std::vector<int> res;
@@ -49,6 +49,6 @@ int main(int argc, char *argv[]){
 		std::cin >> v[i];
 	}
 	
-	std::cout << f(target, v);
+	std::cout << twoSum(target, v);
 	return 0;
 }
