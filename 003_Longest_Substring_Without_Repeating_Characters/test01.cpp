@@ -3,8 +3,6 @@
 #include <unordered_map>
 
 
-
-
 int lengthOfLongestSubstring(std::string s){
     std::unordered_map<char, int> m;
     int max_len = 0, start = 0;
@@ -12,7 +10,6 @@ int lengthOfLongestSubstring(std::string s){
         if(m.count(s[i]) && m[s[i]] >= start)
             start = m[s[i]] + 1;
         m[s[i]] = i;
-
         max_len = std::max(max_len, i - start + 1);
     }
     return max_len;
