@@ -17,7 +17,6 @@ std::ostream& operator<<(std::ostream& os, const ContainerType<ValueType, Args..
     return os;
 }
 
-
 double findMedianSortedArrays(std::vector<int>& nums1, std::vector<int>& nums2){
     int n = nums1.size();
     int m = nums2.size();
