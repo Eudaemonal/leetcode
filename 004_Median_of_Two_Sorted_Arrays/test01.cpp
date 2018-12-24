@@ -21,28 +21,41 @@ double findMedianSortedArrays(std::vector<int>& nums1, std::vector<int>& nums2){
     int n = nums1.size();
     int m = nums2.size();
 
-    std::vector<int> combined;
-    int i =0, j=0;
-    while(i < n && j < m){
-        if(nums1[i] < nums2[j]){
-            combined.push_back(nums1[i++]);
-        }else{
-            combined.push_back(nums2[j++]);
-        }
-    }
-    while(i < n){
-        combined.push_back(nums1[i++]);
-    }
-    while(j < m){
-        combined.push_back(nums2[j++]);
+    if(n > m){
+        std::swap(nums1, nums2);
+        std::swap(n, m);
     }
 
-    int size = combined.size();
-    if(size % 2){
-        return double(combined[size/2]);
-    }else{
-        return double(combined[size/2-1] + combined[size/2])/2;
+    int iMin = 0, iMax = n, halfLen = (n + m + 1)/2;
+    while(iMin <= iMax){
+        int i = (iMin + iMax) / 2;
+        int j = halfLen - i;
+        if(i < iMax && nums2[j-1] > nums1[i]){
+            iMin = i + 1;
+        }
+        else if(i > iMin && nums1[i-1] > nums2[j]){
+            iMax = i - 1;
+        }
+        else{
+            int maxLeft = 0;
+
+            if(i == 0) maxLeft = nums2[j - 1];
+            else if(j == 0) maxLeft = nums1[i - 1];
+            else maxLeft = std::max(nums1[i-1], nums2[j-1]);
+
+            if( (n+m) % 2 ==1){ 
+                return double(maxLeft); 
+            }
+
+            int minRight = 0;
+            if(i == m) minRight = nums2[j];
+            else if (j == n) minRight = nums1[i];
+            else minRight = std::min(nums1[i], nums2[j]);
+
+            return double(maxLeft + minRight) / 2;
+        }
     }
+    return 0;
 }
 
 int main(int argc, char *argv[]){
@@ -57,6 +70,7 @@ int main(int argc, char *argv[]){
     for(int i = 0; i < m; ++i){
         std::cin >> v2[i];
     }
+
 
     std::cout << findMedianSortedArrays(v1, v2) << "\n";
 
