@@ -3,13 +3,6 @@
 #include <string>
 
 
-bool equal(char a, char b){
-    if(a=='.' || b=='.')
-        return true;
-    return a==b;
-}
-
-
 bool isMatch(std::string s, std::string p){
     int n = s.length();
     int m = p.length();
