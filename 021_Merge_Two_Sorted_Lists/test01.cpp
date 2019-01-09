@@ -6,7 +6,6 @@ struct ListNode {
     ListNode(int x) : val(x), next(NULL) {}
 };
 
-
 std::ostream& operator<<(std::ostream& os, ListNode* curr){
     while(curr){
         os << curr->val;
@@ -17,29 +16,30 @@ std::ostream& operator<<(std::ostream& os, ListNode* curr){
     return os;
 }
 
-ListNode* removeNthFromEnd(ListNode* head, int n){
-    ListNode* offset = head;
-    ListNode* curr = head;
-    ListNode* prev = new ListNode(-1);
-    prev->next = curr;
+ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+    ListNode dummy(INT_MIN);
+    ListNode* curr = &dummy;
 
-    for(int i = 1; i < n; ++i){
-        offset = offset->next;
-    }
-
-    while(offset->next != NULL){
-        offset = offset->next;
-        prev = curr;
+    while(l1 && l2){
+        if(l1->val < l2->val){
+            curr->next = l1;
+            l1 = l1->next;
+        }
+        else{
+            curr->next = l2;
+            l2 = l2->next;
+        }
         curr = curr->next;
     }
-    prev->next = curr->next;
 
-    if(curr == head){
-        return head->next;
+    if(l1 == nullptr && l2 != nullptr){
+        curr->next = l2;
+    }
+    else if(l1 != nullptr && l2 == nullptr){
+        curr->next = l1;
     }
 
-    delete curr;
-    return head;
+    return dummy.next;
 }
 
 ListNode* append(ListNode* head, int val){
@@ -58,15 +58,21 @@ ListNode* append(ListNode* head, int val){
 }
 
 int main(int argc, char *argv[]){
-    int k;
-    int n, val;
-    std::cin >> k;
-    std::cin >> n;
+    int n, m, val;
+    ListNode* l1;
+    ListNode* l2;
 
-    ListNode* head;
+    std::cin >> n;
     for(int i = 0; i < n; ++i){
         std::cin >> val;
-        head = append(head, val);
+        l1 = append(l1, val);
     }
-    std::cout << removeNthFromEnd(head, k);
+
+    std::cin >> m;
+    for(int i = 0; i < m; ++i){
+        std::cin >> val;
+        l2 = append(l2, val);
+    }
+
+    std::cout << mergeTwoLists(l1, l2);
 }

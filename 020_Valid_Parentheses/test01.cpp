@@ -29,7 +29,6 @@ bool isRight(char c){
     return false;
 }
 
-
 bool isValid(std::string s){
     int n = s.length();
     std::stack<char> stack;
@@ -56,7 +55,6 @@ bool isValid(std::string s){
     if(!stack.empty()){
         return false;
     }
-        
     return true;
 }
 
