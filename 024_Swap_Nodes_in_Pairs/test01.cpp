@@ -16,12 +16,30 @@ std::ostream& operator<<(std::ostream& os, ListNode* curr){
     return os;
 }
 
-
-
 ListNode* swapPairs(ListNode* head){
-    
-}
+    if(head == nullptr || head->next == nullptr){
+        return head;
+    }
+    ListNode* curr = head->next;
+    ListNode* prev = head;
+    ListNode* temp;
 
+    prev->next = curr->next;
+    curr->next = prev;
+    head = curr;
+    while(prev->next){
+        temp = prev->next; 
+        curr = temp->next;
+        if(curr == nullptr){
+            break;
+        }
+        temp->next = curr->next;
+        curr->next = temp;
+        prev->next = curr;
+        prev = temp;
+    }
+    return head;
+}
 
 ListNode* append(ListNode* head, int val){
     ListNode* node = new ListNode(val);
@@ -46,5 +64,5 @@ int main(int argc, char *argv[]){
         std::cin >> val;
         head = append(head, val);
     }
-    std::cout << head;
+    std::cout << swapPairs(head);
 }
