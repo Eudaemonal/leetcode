@@ -21,7 +21,7 @@ int removeElement(std::vector<int>& nums, int val) {
     int n = nums.size();
     int i = 0;
     while(i < n){
-        if(nums[j] == val){
+        if(nums[i] == val){
             nums[i] = nums[n-1];
             n--;
         }else{
@@ -32,12 +32,14 @@ int removeElement(std::vector<int>& nums, int val) {
 }
 
 int main(int argc, char *argv[]){
-    int n;
+    int n, val;
+    std::cin >> val;
     std::cin >> n;
     std::vector<int> v(n);
     for(int i = 0; i < n; ++i){
         std::cin >> v[i];
     }
+    std::cout << removeElement(v, val) << "\n";
 
     return 0;
 }
