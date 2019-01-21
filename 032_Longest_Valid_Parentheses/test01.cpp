@@ -1,38 +1,30 @@
 #include <iostream>
-#include <vector>
+#include <string>
+#include <stack>
 
-template <typename T, typename U>
-std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) {
-    os << "[" << p.first << ", " << p.second << "]";
-    return os;
-}
 
-template <template <typename, typename...> class ContainerType, 
-          typename ValueType, typename... Args>
-std::ostream& operator<<(std::ostream& os, const ContainerType<ValueType, Args...>& c){
-    for(const auto& v : c){
-        os << v << ' ';
+int longestValidParentheses(std::string s){
+    std::stack<int> stack;
+    stack.push(-1);
+
+    int max = 0;
+    for(int i = 0; i < s.size(); ++i){
+        int t = stack.top();
+        if(t != -1 && s[i] == ')' && s[t] == '('){
+            stack.pop();
+            max = std::max(max, i - stack.top());
+        }
+        else{
+            stack.push(i);
+        }
     }
-    os << '\n';
-    return os;
-}
-
-int f(std::vector<int> v){
-    int n = v.size();
-    for(int i = 0; i < n; ++i){
-        
-    }
-    return 0;
+    return max;
 }
 
 int main(int argc, char *argv[]){
-    int n;
-    std::cin >> n;
-    std::vector<int> v(n);
-    for(int i = 0; i < n; ++i){
-        std::cin >> v[i];
-    }
+    std::string s;
+    std::cin >> s;
 
-    std::cout << f(v) << "\n";
+    std::cout << longestValidParentheses(s) <<"\n";
     return 0;
 }
