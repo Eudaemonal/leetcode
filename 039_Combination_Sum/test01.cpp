@@ -1,24 +1,33 @@
 #include <iostream>
 #include <vector>
 
-template <typename T, typename U>
-std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) {
-    os << "[" << p.first << ", " << p.second << "]";
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, std::vector<std::vector<T>> v){
+    for(auto it : v){
+        for(auto elem : it){
+            os << elem << " ";
+        }
+        os << "\n";
+    }
     return os;
 }
 
-template <template <typename, typename...> class ContainerType, 
-          typename ValueType, typename... Args>
-std::ostream& operator<<(std::ostream& os, const ContainerType<ValueType, Args...>& c){
-    for(const auto& v : c){
-        os << v << ' ';
+void combinationSum(std::vector<std::vector<int>>& res, std::vector<int>& c, std::vector<int> s, int target, int idx){
+    if(target == 0) res.push_back(s);
+    else if(idx >= c.size() || c[idx] > target) return;
+    else{
+        combinationSum(res, c, s, target, idx+1);
+        s.push_back(c[idx]);
+        combinationSum(res, c, s, target - c[idx], idx);
     }
-    os << '\n';
-    return os;
 }
 
 std::vector<std::vector<int>> combinationSum(std::vector<int>& candidates, int target){
-    
+    std::vector<std::vector<int>> res;
+    std::sort(candidates.begin(), candidates.end());
+    combinationSum(res, candidates, std::vector<int>() = {}, target, 0);
+    return res;
 }
 
 int main(int argc, char *argv[]){
@@ -31,6 +40,6 @@ int main(int argc, char *argv[]){
         std::cin >> v[i];
     }
 
-    std::cout << combinationSum(v);
+    std::cout << combinationSum(v, t);
     return 0;
 }
