@@ -17,12 +17,8 @@ std::ostream& operator<<(std::ostream& os, const ContainerType<ValueType, Args..
     return os;
 }
 
-int f(std::vector<int> v){
-    int n = v.size();
-    for(int i = 0; i < n; ++i){
-        
-    }
-    return 0;
+int jump(std::vector<int>& nums) {
+
 }
 
 int main(int argc, char *argv[]){
@@ -33,6 +29,6 @@ int main(int argc, char *argv[]){
         std::cin >> v[i];
     }
 
-    std::cout << f(v) << "\n";
+    std::cout << jump(v) << "\n";
     return 0;
 }
