@@ -19,14 +19,13 @@ std::ostream& operator<<(std::ostream& os, const ContainerType<ValueType, Args..
 
 int maxSubArray(std::vector<int>& nums) {
     int n = nums.size();
-    int sum = 0;
+    int cmax = 0;
     int max = INT_MIN;
 
     for(int i = 0; i < n; ++i){
-        sum += nums[i];
-        max = std::max(max, sum);
-        if(sum < 0) {
-            sum = 0;
+        cmax = std::max(nums[i], cmax + nums[i]);
+        if(cmax > max){
+            max = cmax;
         }
     }
     return max;
