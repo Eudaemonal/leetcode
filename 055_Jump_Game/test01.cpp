@@ -17,12 +17,18 @@ std::ostream& operator<<(std::ostream& os, const ContainerType<ValueType, Args..
     return os;
 }
 
-int f(std::vector<int> v){
-    int n = v.size();
+bool canJump(std::vector<int>& nums) {
+    int n = nums.size();
+    int max = 0;
     for(int i = 0; i < n; ++i){
-        
+        if(i <= max){
+            max = std::max(max, i + nums[i]);
+        }
+        if(max >= n-1){
+            return true;
+        }
     }
-    return 0;
+    return false;
 }
 
 int main(int argc, char *argv[]){
@@ -33,6 +39,6 @@ int main(int argc, char *argv[]){
         std::cin >> v[i];
     }
 
-    std::cout << f(v) << "\n";
+    std::cout << std::boolalpha << canJump(v) << "\n";
     return 0;
 }
