@@ -13,7 +13,8 @@ std::ostream& operator<<(std::ostream& os, const std::vector<std::vector<T>> &v)
 }
 
 bool searchMatrix(std::vector<std::vector<int>>& matrix, int target) {
-    
+    auto it = std::lower_bound(matrix.begin(), matrix.end(), target, [&](std::vector<int> &v, int x){return v.back() < x;});
+    return it != matrix.end() && std::binary_search(it->begin(), it->end(), target);
 }
 
 int main(int argc, char *argv[]){
