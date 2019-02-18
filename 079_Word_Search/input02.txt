@@ -1,0 +1,5 @@
+AAB
+3 3
+C A A
+A A A
+B C D
