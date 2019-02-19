@@ -1,38 +1,62 @@
 #include <iostream>
-#include <vector>
 
-template <typename T, typename U>
-std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) {
-    os << "[" << p.first << ", " << p.second << "]";
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+
+std::ostream& operator<<(std::ostream& os, ListNode* curr){
+    while(curr){
+        os << curr->val;
+        os << " ";
+        curr = curr->next;
+    }
+    os << "\n";
     return os;
 }
 
-template <template <typename, typename...> class ContainerType, 
-          typename ValueType, typename... Args>
-std::ostream& operator<<(std::ostream& os, const ContainerType<ValueType, Args...>& c){
-    for(const auto& v : c){
-        os << v << ' ';
+ListNode* deleteDuplicates(ListNode* head){
+    if(head==NULL) return head;
+    ListNode* curr = head->next;
+    ListNode* prev = head;
+
+    while(curr){
+        if(prev->val == curr->val){
+            prev->next = curr->next;
+        }else{
+            prev = prev->next;
+        }
+        curr = curr->next;
     }
-    os << '\n';
-    return os;
+    return head;
 }
 
-int f(std::vector<int> v){
-    int n = v.size();
-    for(int i = 0; i < n; ++i){
-        
+ListNode* append(ListNode* head, int val){
+    ListNode* node = new ListNode(val);
+    if(head == nullptr){
+        head = node;
     }
-    return 0;
+    else{
+        ListNode* curr = head;
+        while(curr->next){
+            curr = curr->next;
+        }
+        curr->next = node;
+    }
+    return head;
 }
 
 int main(int argc, char *argv[]){
-    int n;
+    int n, val;
+    ListNode* l;
+
     std::cin >> n;
-    std::vector<int> v(n);
     for(int i = 0; i < n; ++i){
-        std::cin >> v[i];
+        std::cin >> val;
+        l = append(l, val);
     }
 
-    std::cout << f(v) << "\n";
+    std::cout << deleteDuplicates(l);
     return 0;
 }
