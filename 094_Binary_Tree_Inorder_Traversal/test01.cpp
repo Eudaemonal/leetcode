@@ -37,6 +37,15 @@ std::vector<int> inorderTraversal(TreeNode* root) {
     return v;
 }
 
+TreeNode* insert(TreeNode* root, std::vector<int>& v, int i){
+    if(i < v.size()){
+        root = new TreeNode(v[i]);
+        root->left = insert(root->left, v, 2*i + 1);
+        root->right = insert(root->right, v, 2*i + 2);
+    }
+    return root;
+}
+
 int main(int argc, char *argv[]){
     TreeNode *root = new TreeNode(1);
     root->right = new TreeNode(2);
