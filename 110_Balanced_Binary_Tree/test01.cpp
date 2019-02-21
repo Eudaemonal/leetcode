@@ -11,7 +11,7 @@ struct TreeNode {
 std::ostream& operator<<(std::ostream& os, TreeNode *root)  {  
     if (root == NULL) return os;
     std::queue<TreeNode*> q;
- 
+
     q.push(root);
     while (q.empty() == false) {
         int count = q.size();
