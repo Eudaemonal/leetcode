@@ -61,10 +61,9 @@ private:
 
 void solve(std::vector<std::vector<char>>& board) {
     int n = board.size();
+    if(n ==0) return;
     int m = board[0].size();
     
-    if(n ==0) return;
-
     Union uf(n*m+1);
     for(int i = 0; i < n; ++i){
         for(int j = 0; j < m; ++j){
