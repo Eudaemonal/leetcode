@@ -17,18 +17,16 @@ std::ostream& operator<<(std::ostream& os, const ContainerType<ValueType, Args..
     return os;
 }
 
-
 template <typename T>
-std::ostream& operator<<(std::ostream& os, const std::vector<std::vector<T>> v){
-    for(const auto& _v : v){
-        for(const auto& it : _v){
-            os << it << ' ';
+std::ostream& operator<<(std::ostream& os, const std::vector<std::vector<T>> &v){
+    for(auto row: v){
+        for(auto it: row){
+            os << it << " ";
         }
-        os << '\n';
+        os << "\n";
     }
     return os;
 }
-
 
 std::vector<std::vector<int>> threeSum(std::vector<int>& nums) {
     std::vector<std::vector<int>> res;
