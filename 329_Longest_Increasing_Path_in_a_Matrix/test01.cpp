@@ -12,7 +12,7 @@ std::ostream& operator<<(std::ostream& os, const std::vector<std::vector<T>> &v)
 	return os;
 }
 
-int dfs(std::vector<std::vector<int>>& matrix, int i, int j, int m, int n, std::vector<std::vector<int>>& cache){
+int dfs(std::vector<std::vector<int>>& matrix, int i, int j, int n, int m, std::vector<std::vector<int>>& cache){
     if(cache[i][j] != 0) return cache[i][j];
     int max = 1;
 
@@ -20,8 +20,8 @@ int dfs(std::vector<std::vector<int>>& matrix, int i, int j, int m, int n, std::
     for(std::pair<int, int> dir : dirs){
         int x = i + dir.first;
         int y = j + dir.second;
-        if(x < 0 || x >= m || y < 0 || y >= n || matrix[x][y] <= matrix[i][j]) continue;
-        int len = 1 + dfs(matrix, x, y, m, n, cache);
+        if(x < 0 || x >= n || y < 0 || y >= m || matrix[x][y] <= matrix[i][j]) continue;
+        int len = 1 + dfs(matrix, x, y, n, m, cache);
         max = std::max(max, len);
     }
     cache[i][j] = max;
@@ -36,7 +36,7 @@ int longestIncreasingPath(std::vector<std::vector<int>>& matrix) {
     std::vector<std::vector<int>> cache(n, std::vector<int>(m));
     for(int i = 0; i < n; i++){
         for(int j = 0; j < m; j++){
-            int len = dfs(matrix, i, j, m, n, cache);
+            int len = dfs(matrix, i, j, n, m, cache);
             res = std::max(res, len);
         }
     }
