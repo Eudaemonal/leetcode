@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unordered_map>
 #include <vector>
 
 template <typename T, typename U>
@@ -18,7 +19,16 @@ std::ostream& operator<<(std::ostream& os, const ContainerType<ValueType, Args..
 }
 
 std::vector<int> topKFrequent(std::vector<int>& nums, int k){
+    std::unordered_map<int, int> freq;
+    auto it = nums.begin();
+    for(int n: nums) if(!freq[n]++) *it++ = n;
+    nums.resize(freq.size());
 
+    std::nth_element(nums.begin(), nums.begin() + (k-1), nums.end(),[&](int a, int b){
+        return freq[a] > freq[b];        
+    });
+    nums.resize(k);
+    return std::move(nums);
 }
 
 
@@ -32,6 +42,6 @@ int main(int argc, char *argv[]){
         std::cin >> v[i];
     }
 
-    std::cout << topKFrequent(v) << "\n";
+    std::cout << topKFrequent(v, k);
     return 0;
 }
